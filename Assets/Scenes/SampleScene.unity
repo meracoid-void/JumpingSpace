@@ -265,6 +265,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9928733
+      objectReference: {fileID: 0}
+    - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0035633445
+      objectReference: {fileID: 0}
     - target: {fileID: 517930984905851739, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: shrinkSpeed
       value: 2
@@ -276,6 +284,14 @@ PrefabInstance:
     - target: {fileID: 4454659598132143880, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_Name
       value: ImmovablePlatform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.99603105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.00248456
       objectReference: {fileID: 0}
     - target: {fileID: 9123879421360179120, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_LocalScale.x
@@ -340,6 +356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321539559}
   - component: {fileID: 321539558}
+  - component: {fileID: 321539560}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -359,9 +376,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22f54f4c97ee7b45a609edc37093d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingTimer: 30
   timer: 30
   player: {fileID: 1044576586}
   timerText: {fileID: 51166432}
+  respawnDelay: 3
+  respawnPoint: {x: -3.62, y: -2.36, z: 0.01157947}
 --- !u!4 &321539559
 Transform:
   m_ObjectHideFlags: 0
@@ -377,6 +397,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321539560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321539557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dde37ebc9ac0b4faeb32560f3ad529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerRespawning: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +525,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.99731106
+      objectReference: {fileID: 0}
+    - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0013444126
+      objectReference: {fileID: 0}
     - target: {fileID: 517930984905851739, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: shrinkSpeed
       value: 2
@@ -503,6 +544,14 @@ PrefabInstance:
     - target: {fileID: 4454659598132143880, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_Name
       value: ImmovablePlatform (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.98805326
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0064733922
       objectReference: {fileID: 0}
     - target: {fileID: 9123879421360179120, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_LocalScale.x
@@ -695,12 +744,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7342772721629538337, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9542537
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342772721629538337, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 0.9803946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7342772721629538337, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0032675266
       objectReference: {fileID: 0}
     - target: {fileID: 7342772721629538337, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: 0.009802699
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -824,11 +881,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 0.09788585
       objectReference: {fileID: 0}
     - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: 0.45105708
       objectReference: {fileID: 0}
     - target: {fileID: 245054972955869453, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_IsTrigger
@@ -837,6 +894,14 @@ PrefabInstance:
     - target: {fileID: 4454659598132143880, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_Name
       value: ImmovablePlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Size.y
+      value: 0.098885834
+      objectReference: {fileID: 0}
+    - target: {fileID: 8678852278275863174, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.4510571
       objectReference: {fileID: 0}
     - target: {fileID: 9123879421360179120, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
       propertyPath: m_LocalScale.x

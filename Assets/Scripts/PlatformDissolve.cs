@@ -28,10 +28,13 @@ public class PlatformDissolve : MonoBehaviour
     // OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only)
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the other collider is the Player
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.tag == "Player")
         {
-            isPlayerOnPlatform = true;
+            // Check if the player is on top of the platform
+            if (other.transform.position.y > transform.position.y)
+            {
+                isPlayerOnPlatform = true;
+            }
         }
     }
 
