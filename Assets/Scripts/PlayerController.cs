@@ -5,9 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5.0f;  // Movement speed
-    public float jumpForce = 5.0f;  // Jump force
+    public float minJumpForce = 2.0f;  // Minimum jump force for a quick tap
+    public float maxJumpForce = 5.0f;  // Maximum jump force for holding the button
+    public float timeToReachMaxForce = 0.5f; // Time in seconds to reach max jump force when button is held
+
     private Rigidbody2D rb;     // Reference to the Rigidbody2D component
     private bool isJumping = false; // Flag to check if the player is currently jumping
+    private float timeHeld = 0f;  // Time the jump button is held
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +20,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+
+    // Update is called once per frame
     void Update()
     {
         // Get horizontal input only
@@ -27,13 +33,32 @@ public class PlayerController : MonoBehaviour
         // Apply movement to the Rigidbody2D
         rb.velocity = movement * new Vector2(speed, 1);
 
-        // Check for jump input
+        // Detect if the jump button is pressed
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             isJumping = true;
+            timeHeld = 0f;
+        }
+
+        // Detect if the jump button is being held
+        if (Input.GetButton("Jump") && isJumping)
+        {
+            timeHeld += Time.deltaTime;
+            float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
+            if(percentage < 1)
+            {
+                float currentJumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, percentage);
+                rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
+            }
+        }
+
+        // Detect if the jump button is released
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
         }
     }
+
 
     // OnCollisionEnter2D is called when this collider/rigidbody has begun touching another rigidbody/collider
     void OnCollisionEnter2D(Collision2D collision)
