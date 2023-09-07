@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;     // Reference to the Rigidbody2D component
     private bool isJumping = false; // Flag to check if the player is currently jumping
     private float timeHeld = 0f;  // Time the jump button is held
+    private bool isFalling = false;  // Flag to check if the player is currently falling
 
     // Start is called before the first frame update
     void Start()
@@ -33,15 +34,25 @@ public class PlayerController : MonoBehaviour
         // Apply movement to the Rigidbody2D
         rb.velocity = movement * new Vector2(speed, 1);
 
+        // Update the isFalling flag based on the vertical velocity
+        if (rb.velocity.y < 0)
+        {
+            isFalling = true;
+        }
+        else
+        {
+            isFalling = false;
+        }
+
         // Detect if the jump button is pressed
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        if (Input.GetButtonDown("Jump") && !isJumping && !isFalling)
         {
             isJumping = true;
             timeHeld = 0f;
         }
 
         // Detect if the jump button is being held
-        if (Input.GetButton("Jump") && isJumping)
+        if (Input.GetButton("Jump") && isJumping && !isFalling)
         {
             timeHeld += Time.deltaTime;
             float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
