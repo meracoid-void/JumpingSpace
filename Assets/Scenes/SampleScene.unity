@@ -314,6 +314,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51166430}
   m_CullTransparentMesh: 1
+--- !u!1001 &65362225
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6940073117248499567, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_Name
+      value: KillPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25.069077
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9.373317
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.11163044
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
 --- !u!1001 &136294673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -466,7 +523,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09dde37ebc9ac0b4faeb32560f3ad529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpPrefab: {fileID: 6056480885153935088, guid: b4ea88a0c9bbfec4eb7663ca3a22b85f, type: 3}
+  GoombaPrefab: {fileID: 5157774915399286322, guid: ad3335f524cc2a44baff4fb6c06e06a8, type: 3}
+  platformPrefab: {fileID: 4454659598132143880, guid: d8d7fe54e67227b47b0895b5c33cfcbe, type: 3}
   isPlayerRespawning: 0
+  playerLives: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,63 +1135,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4ea88a0c9bbfec4eb7663ca3a22b85f, type: 3}
---- !u!1001 &8393762441187838969
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6940073117248499567, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_Name
-      value: KillPlane
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.2619505
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -8.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.11163044
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479089079777886295, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9a290c174eef05443ad3e1109060da7c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1144,5 +1148,5 @@ SceneRoots:
   - {fileID: 136294673}
   - {fileID: 778945775}
   - {fileID: 2654588942753289636}
-  - {fileID: 8393762441187838969}
   - {fileID: 35864726}
+  - {fileID: 65362225}
