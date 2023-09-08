@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimerAndKill : MonoBehaviour
 {
@@ -52,6 +53,19 @@ public class TimerAndKill : MonoBehaviour
     {
         // Disable the player
         player.SetActive(false);
+        if (!GameManager.Instance.isPlayerRespawning)
+        {
+            GameManager.Instance.playerLives -= 1;
+        }
+
+        GameManager.Instance.isPlayerRespawning = true;
+
+
+        if(GameManager.Instance.playerLives == 0)
+        {
+            SceneManager.LoadScene("StartingScene");
+
+        }
 
         // Start moving the camera to the respawn point
         StartCoroutine(CameraFollow.Instance.MoveToPosition(respawnPoint + CameraFollow.Instance.offset, respawnDelay));
@@ -61,6 +75,8 @@ public class TimerAndKill : MonoBehaviour
 
         // Respawn the player at the respawnPoint
         player.transform.position = respawnPoint;
+
+        GameManager.Instance.isPlayerRespawning = false;
 
         // Enable the player
         player.SetActive(true);
