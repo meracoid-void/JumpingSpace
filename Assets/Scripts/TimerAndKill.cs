@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class TimerAndKill : MonoBehaviour
 {
+    public static TimerAndKill instance;
+
     public float startingTimer = 30.0f;
     public float timer = 30.0f;  // Start time in seconds
     public GameObject player;    // Reference to the player GameObject
     public TextMeshProUGUI timerText;       // Reference to the UI Text component
     public float respawnDelay = 3.0f; // Time to wait before respawning the player
     public Vector3 respawnPoint;
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
 
     // Update is called once per frame
     void Update()
