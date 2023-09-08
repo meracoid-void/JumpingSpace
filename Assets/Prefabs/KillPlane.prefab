@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7711054590843834259}
   - component: {fileID: 707278796568885124}
   - component: {fileID: 3469955619359917}
-  - component: {fileID: 1106061095447812492}
+  - component: {fileID: -579175049064038326}
   m_Layer: 0
   m_Name: KillPlane
   m_TagString: KillPlane
@@ -130,7 +130,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1106061095447812492
+--- !u!114 &-579175049064038326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6940073117248499567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a486853a86fdf5a4d8e733f805aa9ec2, type: 3}
+  m_Script: {fileID: 11500000, guid: 06835c9c5f1f1ee42a52f94f73ee9c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

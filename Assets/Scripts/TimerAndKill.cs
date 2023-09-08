@@ -56,6 +56,7 @@ public class TimerAndKill : MonoBehaviour
         if (!GameManager.Instance.isPlayerRespawning)
         {
             GameManager.Instance.playerLives -= 1;
+            GameManager.Instance.ResetGameAssets();
         }
 
         GameManager.Instance.isPlayerRespawning = true;
@@ -64,7 +65,7 @@ public class TimerAndKill : MonoBehaviour
         if(GameManager.Instance.playerLives == 0)
         {
             SceneManager.LoadScene("StartingScene");
-
+            yield break;
         }
 
         // Start moving the camera to the respawn point
@@ -76,12 +77,10 @@ public class TimerAndKill : MonoBehaviour
         // Respawn the player at the respawnPoint
         player.transform.position = respawnPoint;
 
-        GameManager.Instance.isPlayerRespawning = false;
-
         // Enable the player
         player.SetActive(true);
-
         timer = startingTimer;
+        GameManager.Instance.isPlayerRespawning = false;
     }
 }
 
