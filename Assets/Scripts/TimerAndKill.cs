@@ -48,7 +48,7 @@ public class TimerAndKill : MonoBehaviour
     }
 
     // Function to "kill" the player
-    IEnumerator RespawnPlayer()
+    public IEnumerator RespawnPlayer()
     {
         // Disable the player
         player.SetActive(false);
