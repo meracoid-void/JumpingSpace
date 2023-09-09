@@ -28,11 +28,15 @@ public class PlayerController : MonoBehaviour
         // Get horizontal input only
         float horizontal = Input.GetAxis("Horizontal");
 
-        // Create a 2D movement vector for the horizontal direction
-        Vector2 movement = new Vector2(horizontal, rb.velocity.y);
+        if(horizontal != 0)
+        {
+            // Create a 2D movement vector for the horizontal direction
+            Vector2 movement = new Vector2(horizontal, rb.velocity.y);
 
-        // Apply movement to the Rigidbody2D
-        rb.velocity = movement * new Vector2(speed, 1);
+            // Apply movement to the Rigidbody2D
+            rb.velocity = movement * new Vector2(speed, 1);
+        }
+
 
         // Update the isFalling flag based on the vertical velocity
         if (rb.velocity.y < 0)
