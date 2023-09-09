@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TimerAndKill : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TimerAndKill : MonoBehaviour
     public float timer = 30.0f;  // Start time in seconds
     public GameObject player;    // Reference to the player GameObject
     public TextMeshProUGUI timerText;       // Reference to the UI Text component
+    public Image screen;
     public float respawnDelay = 3.0f; // Time to wait before respawning the player
     public Vector3 respawnPoint;
 
@@ -29,6 +31,9 @@ public class TimerAndKill : MonoBehaviour
         {
             // Reduce the timer by the time since the last frame
             timer -= Time.deltaTime;
+
+            float alphaValue = 1.0f - (timer / 30.0f);
+            screen.color = new Color(0, 0, 0, alphaValue);
 
             // Update the timer text
             timerText.text = "Time Left: " + timer.ToString("F2");  // F2 means 2 decimal places
