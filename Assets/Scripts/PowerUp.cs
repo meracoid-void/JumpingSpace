@@ -24,6 +24,7 @@ public class PowerUp : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            Debug.Log(isCheckpoint);
             // Reference to the singleton instance of TimerAndKill
             TimerAndKill timerAndKill = TimerAndKill.instance;
 
@@ -35,7 +36,7 @@ public class PowerUp : MonoBehaviour
                 // Update the respawn point
                 timerAndKill.respawnPoint = transform.position;
             }
-            else
+            else if(!isCheckpoint)
             {
                 // Increase the timer
                 timerAndKill.timer += addTime;

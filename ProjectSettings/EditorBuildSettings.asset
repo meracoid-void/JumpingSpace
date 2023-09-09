@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/PostGameScene.unity
+    guid: 88d6c21ef03f41c40ad10bbe666e3689
   m_configObjects: {}

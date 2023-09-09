@@ -15,6 +15,8 @@ public class TimerAndKill : MonoBehaviour
     public Image screen;
     public float respawnDelay = 3.0f; // Time to wait before respawning the player
     public Vector3 respawnPoint;
+    public Vector3 startingScreenScale;
+    public Vector3 finalScreenScale;
 
     void Awake()
     {
@@ -32,8 +34,8 @@ public class TimerAndKill : MonoBehaviour
             // Reduce the timer by the time since the last frame
             timer -= Time.deltaTime;
 
-            float alphaValue = 1.0f - (timer / startingTimer);
-            screen.color = new Color(0, 0, 0, alphaValue);
+            float lerpValue = 1.0f - (timer / startingTimer);
+            screen.transform.localScale = Vector3.Lerp(startingScreenScale, finalScreenScale, lerpValue);
 
             // Update the timer text
             timerText.text = "Time Left: " + timer.ToString("F2");  // F2 means 2 decimal places

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private List<TransformData> initialPlatformData;  
 
-    private List<Vector3> initialPowerUpPositions;
+    private List<PowerUpData> initialPowerUpPositions;
     private List<Vector3> initialNPCPositions;
 
     void Awake()
@@ -49,10 +49,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        initialPowerUpPositions = new List<Vector3>();
+        initialPowerUpPositions = new List<PowerUpData>();
         foreach (PowerUp powerUp in FindObjectsOfType<PowerUp>())
         {
-            initialPowerUpPositions.Add(powerUp.transform.position);
+            PowerUpData data = new PowerUpData
+            {
+                position = powerUp.transform.position,
+                isCheckpoint = powerUp.isCheckpoint,
+                timeAdd = powerUp.addTime
+            };
+            initialPowerUpPositions.Add(data);
         }
 
         initialNPCPositions = new List<Vector3>();
@@ -91,9 +97,12 @@ public class GameManager : MonoBehaviour
         }
 
         // Instantiate new ones at the initial positions
-        foreach (Vector3 pos in initialPowerUpPositions)
+        foreach (PowerUpData pos in initialPowerUpPositions)
         {
-            Instantiate(powerUpPrefab, pos, Quaternion.identity);
+            GameObject newPowerup = Instantiate(powerUpPrefab, pos.position, Quaternion.identity);
+            var newPowerUpData = newPowerup.GetComponent<PowerUp>();
+            newPowerUpData.addTime = pos.timeAdd;
+            newPowerUpData.isCheckpoint = pos.isCheckpoint;
         }
 
         // Reset Gomba
@@ -116,4 +125,11 @@ public struct TransformData
     public Vector3 position;
     public Vector3 scale;
     public float shrinkSpeed;
+}
+
+public struct PowerUpData
+{
+    public Vector3 position;
+    public bool isCheckpoint;
+    public float timeAdd;
 }
