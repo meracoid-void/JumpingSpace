@@ -32,7 +32,7 @@ public class TimerAndKill : MonoBehaviour
             // Reduce the timer by the time since the last frame
             timer -= Time.deltaTime;
 
-            float alphaValue = 1.0f - (timer / 30.0f);
+            float alphaValue = 1.0f - (timer / startingTimer);
             screen.color = new Color(0, 0, 0, alphaValue);
 
             // Update the timer text
