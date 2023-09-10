@@ -7,15 +7,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject powerUpPrefab;
     public GameObject GoombaPrefab;
+    public GameObject SmartGoombaPrefab;
     public GameObject platformPrefab;
 
     public bool isPlayerRespawning = false;
     public int playerLives = 3;
 
+
+    private List<NPCData> SmartGoombaPositions;
+
     private List<TransformData> initialPlatformData;  
 
     private List<PowerUpData> initialPowerUpPositions;
-    private List<Vector3> initialNPCPositions;
+    private List<NPCData> initialNPCPositions;
 
     void Awake()
     {
@@ -61,10 +65,31 @@ public class GameManager : MonoBehaviour
             initialPowerUpPositions.Add(data);
         }
 
-        initialNPCPositions = new List<Vector3>();
+        initialNPCPositions = new List<NPCData>();
         foreach(GombaNPCBehavior gomba in FindObjectsOfType<GombaNPCBehavior>())
         {
-            initialNPCPositions.Add(gomba.transform.position);
+            if(gomba.walkingBehavior == WalkingBehavior.Left || gomba.walkingBehavior == WalkingBehavior.Right || gomba.walkingBehavior == WalkingBehavior.StandStill)
+            {
+                NPCData data = new NPCData
+                {
+                    position = gomba.transform.position,
+                    behavior = gomba.walkingBehavior
+                };
+                initialNPCPositions.Add(data);
+            }
+        }
+        SmartGoombaPositions = new List<NPCData>();
+        foreach (GombaNPCBehavior gomba in FindObjectsOfType<GombaNPCBehavior>())
+        {
+            if(gomba.walkingBehavior == WalkingBehavior.SmartLeft || gomba.walkingBehavior == WalkingBehavior.SmartRight)
+            {
+                NPCData data = new NPCData
+                {
+                    position = gomba.transform.position,
+                    behavior = gomba.walkingBehavior
+                };
+                SmartGoombaPositions.Add(data);
+            }
         }
     }
 
@@ -112,9 +137,19 @@ public class GameManager : MonoBehaviour
         }
 
         // Instantiate new ones at the initial positions
-        foreach (Vector3 pos in initialNPCPositions)
+        foreach (NPCData pos in initialNPCPositions)
         {
-            Instantiate(GoombaPrefab, pos, Quaternion.identity);
+            GameObject npc = Instantiate(GoombaPrefab, pos.position, Quaternion.identity);
+            var newNPC = npc.GetComponent<GombaNPCBehavior>();
+            newNPC.walkingBehavior = pos.behavior;
+        }
+
+        // Instantite new Smart goombas
+        foreach (NPCData pos in SmartGoombaPositions)
+        {
+            GameObject npc = Instantiate(SmartGoombaPrefab, pos.position, Quaternion.identity);
+            var newNPC = npc.GetComponent<GombaNPCBehavior>();
+            newNPC.walkingBehavior = pos.behavior;
         }
     }
 }
@@ -132,4 +167,10 @@ public struct PowerUpData
     public Vector3 position;
     public bool isCheckpoint;
     public float timeAdd;
+}
+
+public struct NPCData
+{
+    public Vector3 position;
+    public WalkingBehavior behavior;
 }
