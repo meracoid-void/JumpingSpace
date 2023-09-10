@@ -167,6 +167,7 @@ MonoBehaviour:
   - This is his big break
   textDelay: 0.15
   sceneDelay: 2.5
+  disableInput: 0
 --- !u!4 &287124971
 Transform:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.000013351, y: 152.96}
-  m_SizeDelta: {x: 453.7501, y: 305.92}
+  m_SizeDelta: {x: 450, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &637405161
 CanvasRenderer:
