@@ -12,6 +12,7 @@ public class TimerAndKill : MonoBehaviour
     public float timer = 30.0f;  // Start time in seconds
     public GameObject player;    // Reference to the player GameObject
     public TextMeshProUGUI timerText;       // Reference to the UI Text component
+    public TextMeshProUGUI lifeText;
     public Image screen;
     public float respawnDelay = 3.0f; // Time to wait before respawning the player
     public Vector3 respawnPoint;
@@ -39,6 +40,7 @@ public class TimerAndKill : MonoBehaviour
 
             // Update the timer text
             timerText.text = "Time Left: " + timer.ToString("F2");  // F2 means 2 decimal places
+            lifeText.text = "Lives: " + GameManager.Instance.playerLives;
         }
 
         // Check if the timer has reached zero
