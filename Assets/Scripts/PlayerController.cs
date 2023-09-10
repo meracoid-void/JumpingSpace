@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float minJumpForce = 2.0f;  // Minimum jump force for a quick tap
     public float maxJumpForce = 5.0f;  // Maximum jump force for holding the button
     public float timeToReachMaxForce = 0.5f; // Time in seconds to reach max jump force when button is held
+    public float fastFallSpeed = 10.0f;
 
     private Rigidbody2D rb;     // Reference to the Rigidbody2D component
     private bool isJumping = false; // Flag to check if the player is currently jumping
@@ -97,6 +98,10 @@ public class PlayerController : MonoBehaviour
                     float currentJumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, percentage);
                     rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
                 }
+            }
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -fastFallSpeed);
             }
 
             // Detect if the jump button is released
