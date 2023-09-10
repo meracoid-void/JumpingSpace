@@ -14,6 +14,7 @@ public class PreGameSceneManager : MonoBehaviour
     public List<string> sceneDialog;
     public float textDelay = 0.1f;
     public float sceneDelay = 1.0f;
+    public bool disableInput = false;
 
     private bool inCutscene = false;
 
@@ -26,7 +27,7 @@ public class PreGameSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !disableInput)
         {
             SceneManager.LoadScene(startingScene);
         }

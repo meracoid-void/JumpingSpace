@@ -29,7 +29,7 @@ public class TimerAndKill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer > 0)
+        if (timer > 0 && !GameManager.Instance.isPlayerRespawning)
         {
             // Reduce the timer by the time since the last frame
             timer -= Time.deltaTime;
@@ -42,7 +42,7 @@ public class TimerAndKill : MonoBehaviour
         }
 
         // Check if the timer has reached zero
-        if (timer <= 0)
+        if (timer <= 0 && !GameManager.Instance.isPlayerRespawning)
         {
             // Trigger the "kill" action here
             StartCoroutine(RespawnPlayer());
@@ -77,6 +77,7 @@ public class TimerAndKill : MonoBehaviour
 
         // Start moving the camera to the respawn point
         StartCoroutine(CameraFollow.Instance.MoveToPosition(respawnPoint + CameraFollow.Instance.offset, respawnDelay));
+        //CameraFollow.Instance.Move(respawnPoint + CameraFollow.Instance.offset);
 
         // Wait for a delay before respawning
         yield return new WaitForSeconds(respawnDelay);

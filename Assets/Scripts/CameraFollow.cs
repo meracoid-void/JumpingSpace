@@ -21,6 +21,11 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    public void Move(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     // Method to move the camera to a target position over a duration
     public IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
     {

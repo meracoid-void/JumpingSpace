@@ -496,6 +496,7 @@ MonoBehaviour:
   - 'Music By: Benjamin Ben'
   textDelay: 0.15
   sceneDelay: 2
+  disableInput: 1
 --- !u!4 &1597975525
 Transform:
   m_ObjectHideFlags: 0

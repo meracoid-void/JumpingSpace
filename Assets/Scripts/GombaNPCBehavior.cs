@@ -25,18 +25,21 @@ public class GombaNPCBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Movement based on WalkingBehavior
-        switch (walkingBehavior)
+        if (!GameManager.Instance.isPlayerRespawning)
         {
-            case WalkingBehavior.Left:
-                rb.velocity = new Vector2(-speed, rb.velocity.y);
-                break;
-            case WalkingBehavior.Right:
-                rb.velocity = new Vector2(speed, rb.velocity.y);
-                break;
-            case WalkingBehavior.StandStill:
-                rb.velocity = new Vector2(0, rb.velocity.y);
-                break;
+            // Movement based on WalkingBehavior
+            switch (walkingBehavior)
+            {
+                case WalkingBehavior.Left:
+                    rb.velocity = new Vector2(-speed, rb.velocity.y);
+                    break;
+                case WalkingBehavior.Right:
+                    rb.velocity = new Vector2(speed, rb.velocity.y);
+                    break;
+                case WalkingBehavior.StandStill:
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+                    break;
+            }
         }
     }
 

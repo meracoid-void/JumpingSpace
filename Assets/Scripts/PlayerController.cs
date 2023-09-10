@@ -30,66 +30,70 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get horizontal input only
-        float horizontal = Input.GetAxis("Horizontal");
-
-        if(horizontal != 0)
+        if (!GameManager.Instance.isPlayerRespawning)
         {
-            // Create a 2D movement vector for the horizontal direction
-            Vector2 movement = new Vector2(horizontal, rb.velocity.y);
 
-            if(horizontal > 0)
+            // Get horizontal input only
+            float horizontal = Input.GetAxis("Horizontal");
+
+            if(horizontal != 0)
             {
-                spriteRenderer.flipX = false;
+                // Create a 2D movement vector for the horizontal direction
+                Vector2 movement = new Vector2(horizontal, rb.velocity.y);
+
+                if(horizontal > 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else
+                {
+                    spriteRenderer.flipX = true;
+                }
+
+                // Apply movement to the Rigidbody2D
+                rb.velocity = movement * new Vector2(speed, 1);
+                animator.SetBool("isWalking", true);
             }
             else
             {
-                spriteRenderer.flipX = true;
+                animator.SetBool("isWalking", false);
             }
 
-            // Apply movement to the Rigidbody2D
-            rb.velocity = movement * new Vector2(speed, 1);
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
 
-
-        // Update the isFalling flag based on the vertical velocity
-        if (rb.velocity.y < 0)
-        {
-            isFalling = true;
-        }
-        else
-        {
-            isFalling = false;
-        }
-
-        // Detect if the jump button is pressed
-        if (Input.GetButtonDown("Jump") && !isJumping && !isFalling)
-        {
-            isJumping = true;
-            timeHeld = 0f;
-        }
-
-        // Detect if the jump button is being held
-        if (Input.GetButton("Jump") && isJumping && !isFalling)
-        {
-            timeHeld += Time.deltaTime;
-            float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
-            if(percentage < 1)
+            // Update the isFalling flag based on the vertical velocity
+            if (rb.velocity.y < 0)
             {
-                float currentJumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, percentage);
-                rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
+                isFalling = true;
             }
-        }
+            else
+            {
+                isFalling = false;
+            }
 
-        // Detect if the jump button is released
-        if (Input.GetButtonUp("Jump"))
-        {
-            isJumping = false;
+            // Detect if the jump button is pressed
+            if (Input.GetButtonDown("Jump") && !isJumping && !isFalling)
+            {
+                isJumping = true;
+                timeHeld = 0f;
+            }
+
+            // Detect if the jump button is being held
+            if (Input.GetButton("Jump") && isJumping && !isFalling)
+            {
+                timeHeld += Time.deltaTime;
+                float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
+                if(percentage < 1)
+                {
+                    float currentJumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, percentage);
+                    rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
+                }
+            }
+
+            // Detect if the jump button is released
+            if (Input.GetButtonUp("Jump"))
+            {
+                isJumping = false;
+            }
         }
     }
 
