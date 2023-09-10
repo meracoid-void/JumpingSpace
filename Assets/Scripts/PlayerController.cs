@@ -63,16 +63,23 @@ public class PlayerController : MonoBehaviour
             // Update the isFalling flag based on the vertical velocity
             if (rb.velocity.y < 0)
             {
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isFalling", true);
+                animator.SetBool("isJumping", false);
                 isFalling = true;
             }
             else
             {
+                animator.SetBool("isFalling", false);
                 isFalling = false;
             }
 
             // Detect if the jump button is pressed
             if (Input.GetButtonDown("Jump") && !isJumping && !isFalling)
             {
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isJumping", true);
                 isJumping = true;
                 timeHeld = 0f;
             }
@@ -80,6 +87,9 @@ public class PlayerController : MonoBehaviour
             // Detect if the jump button is being held
             if (Input.GetButton("Jump") && isJumping && !isFalling)
             {
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isJumping", true);
                 timeHeld += Time.deltaTime;
                 float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
                 if(percentage < 1)
@@ -92,6 +102,7 @@ public class PlayerController : MonoBehaviour
             // Detect if the jump button is released
             if (Input.GetButtonUp("Jump"))
             {
+                animator.SetBool("isJumping", false);
                 isJumping = false;
             }
         }

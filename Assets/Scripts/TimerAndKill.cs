@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class TimerAndKill : MonoBehaviour
     public GameObject player;    // Reference to the player GameObject
     public TextMeshProUGUI timerText;       // Reference to the UI Text component
     public TextMeshProUGUI lifeText;
+    public TextMeshProUGUI deathText;
     public Image screen;
     public float respawnDelay = 3.0f; // Time to wait before respawning the player
     public Vector3 respawnPoint;
@@ -60,6 +62,10 @@ public class TimerAndKill : MonoBehaviour
     // Function to "kill" the player
     public IEnumerator RespawnPlayer()
     {
+        screen.transform.localScale = finalScreenScale;
+        deathText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        deathText.gameObject.SetActive(false);
         // Disable the player
         player.SetActive(false);
         if (!GameManager.Instance.isPlayerRespawning)
