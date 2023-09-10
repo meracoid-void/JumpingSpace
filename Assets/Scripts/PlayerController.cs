@@ -13,12 +13,17 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false; // Flag to check if the player is currently jumping
     private float timeHeld = 0f;  // Time the jump button is held
     private bool isFalling = false;  // Flag to check if the player is currently falling
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get the Rigidbody2D component attached to this GameObject
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        Transform childTransform = transform.Find("PlayerSprite");
+        spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
     }
 
 
@@ -33,8 +38,22 @@ public class PlayerController : MonoBehaviour
             // Create a 2D movement vector for the horizontal direction
             Vector2 movement = new Vector2(horizontal, rb.velocity.y);
 
+            if(horizontal > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
+            }
+
             // Apply movement to the Rigidbody2D
             rb.velocity = movement * new Vector2(speed, 1);
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
 
 
