@@ -62,12 +62,6 @@ public class TimerAndKill : MonoBehaviour
     // Function to "kill" the player
     public IEnumerator RespawnPlayer()
     {
-        screen.transform.localScale = finalScreenScale;
-        deathText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2);
-        deathText.gameObject.SetActive(false);
-        // Disable the player
-        player.SetActive(false);
         if (!GameManager.Instance.isPlayerRespawning)
         {
             GameManager.Instance.playerLives -= 1;
@@ -75,7 +69,12 @@ public class TimerAndKill : MonoBehaviour
         }
 
         GameManager.Instance.isPlayerRespawning = true;
-
+        screen.transform.localScale = finalScreenScale;
+        deathText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        deathText.gameObject.SetActive(false);
+        // Disable the player
+        player.SetActive(false);
 
         if(GameManager.Instance.playerLives == 0)
         {

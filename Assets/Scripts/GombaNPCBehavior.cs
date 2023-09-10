@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,9 @@ public class GombaNPCBehavior : MonoBehaviour
     public float speed = 1.0f; // Speed of the enemy
     private Rigidbody2D rb; // Rigidbody2D component for physics
     private SpriteRenderer spriteRenderer;
+
+    private float nextChangeTime = 0.0f;
+    private float changeCooldown = 0.15f;  // Adjust as needed
 
     // Start is called before the first frame update
     void Start()
@@ -42,46 +46,46 @@ public class GombaNPCBehavior : MonoBehaviour
             {
                 case WalkingBehavior.Left:
                     rb.velocity = new Vector2(-speed, rb.velocity.y);
-                    spriteRenderer.flipX = true;
+                    spriteRenderer.flipX = false;
                     break;
                 case WalkingBehavior.Right:
                     rb.velocity = new Vector2(speed, rb.velocity.y);
-                    spriteRenderer.flipX = false;
+                    spriteRenderer.flipX = true;
                     break;
                 case WalkingBehavior.StandStill:
                     rb.velocity = new Vector2(0, rb.velocity.y);
                     break;
                 case WalkingBehavior.SmartLeft:
-                    spriteRenderer.flipX = true;
-                    // Cast a ray from the bottom position of the NPC slightly to the left
-                    RaycastHit2D hitLeft = Physics2D.Raycast(bottomPosition + Vector2.left * 0.1f, Vector2.down, 1.0f, groundLayer);
-
-                    // If the ray doesn't hit anything, it means there's empty space
-                    if (hitLeft.collider != null)
+                    if (Time.time >= nextChangeTime)
                     {
-                        Debug.Log("Hit: " + hitLeft.collider.gameObject.name);
-                        rb.velocity = new Vector2(-speed, rb.velocity.y);
-                    }
-                    else
-                    {
-                        walkingBehavior = WalkingBehavior.SmartRight;
+                        spriteRenderer.flipX = false;
+                        RaycastHit2D hitLeft = Physics2D.Raycast(bottomPosition + Vector2.left * 0.1f, Vector2.down, 1.0f, groundLayer);
+                        if (hitLeft.collider == null)
+                        {
+                            walkingBehavior = WalkingBehavior.SmartRight;
+                            nextChangeTime = Time.time + changeCooldown;
+                            
+                        }
+                        else
+                        {
+                            rb.velocity = new Vector2(-speed, rb.velocity.y);
+                        }
                     }
                     break;
                 case WalkingBehavior.SmartRight:
-                    spriteRenderer.flipX = false;
-                    // Cast a ray downwards from a point slightly ahead of the NPC to the right
-                    RaycastHit2D hitRight = Physics2D.Raycast(rayOrigin + Vector2.right, Vector2.down, -1.0f, groundLayer);
-
-                    // If the ray doesn't hit anything, it means there's empty space
-                    if (hitRight.collider == null)
+                    if (Time.time >= nextChangeTime)
                     {
-                        // Logic when empty space is detected (e.g., turn around or stop)
-                        walkingBehavior = WalkingBehavior.SmartLeft;
-                    }
-                    else
-                    {
-                        // Keep moving to the right
-                        rb.velocity = new Vector2(speed, rb.velocity.y);
+                        spriteRenderer.flipX = true;
+                        RaycastHit2D hitRight = Physics2D.Raycast(bottomPosition + Vector2.right * 0.1f, Vector2.down, 1.0f, groundLayer);
+                        if (hitRight.collider == null)
+                        {
+                            walkingBehavior = WalkingBehavior.SmartLeft;
+                            nextChangeTime = Time.time + changeCooldown;
+                        }
+                        else
+                        {
+                            rb.velocity = new Vector2(speed, rb.velocity.y);
+                        }
                     }
                     break;
             }
