@@ -62,25 +62,28 @@ public class TimerAndKill : MonoBehaviour
     // Function to "kill" the player
     public IEnumerator RespawnPlayer()
     {
+        if (!GameManager.Instance.isPlayerRespawning)
+        {
+            GameManager.Instance.playerLives -= 1;
+        }
+
+        GameManager.Instance.isPlayerRespawning = true;
         screen.transform.localScale = finalScreenScale;
         deathText.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         deathText.gameObject.SetActive(false);
         // Disable the player
         player.SetActive(false);
-        if (!GameManager.Instance.isPlayerRespawning)
-        {
-            GameManager.Instance.playerLives -= 1;
-            GameManager.Instance.ResetGameAssets();
-        }
-
-        GameManager.Instance.isPlayerRespawning = true;
-
 
         if(GameManager.Instance.playerLives == 0)
         {
             SceneManager.LoadScene("StartingScene");
             yield break;
+        }
+
+        if (!GameManager.Instance.isPlayerRespawning)
+        {
+            GameManager.Instance.ResetGameAssets();
         }
 
         // Start moving the camera to the respawn point

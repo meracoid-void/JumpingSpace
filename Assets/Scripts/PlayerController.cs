@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool isFalling = false;  // Flag to check if the player is currently falling
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private bool isPlayingFall = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,10 @@ public class PlayerController : MonoBehaviour
                 // Apply movement to the Rigidbody2D
                 rb.velocity = movement * new Vector2(speed, 1);
                 animator.SetBool("isWalking", true);
+                if(!isJumping && !isFalling)
+                {
+                    isPlayingFall = false;
+                }
             }
             else
             {
@@ -64,6 +69,11 @@ public class PlayerController : MonoBehaviour
             // Update the isFalling flag based on the vertical velocity
             if (rb.velocity.y < 0)
             {
+                if (!isPlayingFall)
+                {
+                    isPlayingFall = true;
+                    AudioClipController.instance.PlayFall();
+                }
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isFalling", true);
                 animator.SetBool("isJumping", false);
@@ -83,6 +93,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isJumping", true);
                 isJumping = true;
                 timeHeld = 0f;
+                AudioClipController.instance.PlayJump();
+                isPlayingFall = false;
             }
 
             // Detect if the jump button is being held
