@@ -3834,7 +3834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jump: {fileID: 8300000, guid: 4baac4b9c4497194db8a03562207c26e, type: 3}
-  fall: {fileID: 8300000, guid: 3a2c485c5efaadb4cbb9e3e8696209ea, type: 3}
+  fall: {fileID: 0}
 --- !u!82 &1309703493
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5588,7 +5588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2603051216668315774, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.37
+      value: -2.52
       objectReference: {fileID: 0}
     - target: {fileID: 2603051216668315774, guid: 71afa058ee0eb5649b435b031ba1f6ca, type: 3}
       propertyPath: m_LocalPosition.z
