@@ -12,12 +12,15 @@ public enum WalkingBehavior
     SmartRight = 4,
 }
 
-public class GombaNPCBehavior : MonoBehaviour
+public class GoombaNPCBehavior : MonoBehaviour
 {
     public WalkingBehavior walkingBehavior;
     public float speed = 1.0f; // Speed of the enemy
     private Rigidbody2D rb; // Rigidbody2D component for physics
     private SpriteRenderer spriteRenderer;
+
+    private Vector3 initialPosition;
+    private WalkingBehavior initialWalkingBehavior;
 
     private float nextChangeTime = 0.0f;
     private float changeCooldown = 0.15f;  // Adjust as needed
@@ -28,6 +31,15 @@ public class GombaNPCBehavior : MonoBehaviour
         // Initialize the Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        initialPosition = transform.position;
+        initialWalkingBehavior = walkingBehavior;
+    }
+
+    public void ResetToInitialState()
+    {
+        transform.position = initialPosition;
+        walkingBehavior = initialWalkingBehavior;
+        // Add other resets here if needed
     }
 
     // Update is called once per frame

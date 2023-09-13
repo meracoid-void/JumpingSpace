@@ -21,7 +21,7 @@ public class PreGameSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class PreGameSceneManager : MonoBehaviour
             SceneManager.LoadScene(startingScene);
         }
 
-        if(!inCutscene)
+        if (!inCutscene)
         {
             inCutscene = true;
             StartCoroutine(TypeDialog());
@@ -59,6 +59,5 @@ public class PreGameSceneManager : MonoBehaviour
             yield return new WaitForSeconds(sceneDelay);
         }
         SceneManager.LoadScene(startingScene);
-        
     }
 }

@@ -66,27 +66,27 @@ public class GameManager : MonoBehaviour
         }
 
         initialNPCPositions = new List<NPCData>();
-        foreach(GombaNPCBehavior gomba in FindObjectsOfType<GombaNPCBehavior>())
+        foreach(GoombaNPCBehavior goomba in FindObjectsOfType<GoombaNPCBehavior>())
         {
-            if(gomba.walkingBehavior == WalkingBehavior.Left || gomba.walkingBehavior == WalkingBehavior.Right || gomba.walkingBehavior == WalkingBehavior.StandStill)
+            if(goomba.walkingBehavior == WalkingBehavior.Left || goomba.walkingBehavior == WalkingBehavior.Right || goomba.walkingBehavior == WalkingBehavior.StandStill)
             {
                 NPCData data = new NPCData
                 {
-                    position = gomba.transform.position,
-                    behavior = gomba.walkingBehavior
+                    position = goomba.transform.position,
+                    behavior = goomba.walkingBehavior
                 };
                 initialNPCPositions.Add(data);
             }
         }
         SmartGoombaPositions = new List<NPCData>();
-        foreach (GombaNPCBehavior gomba in FindObjectsOfType<GombaNPCBehavior>())
+        foreach (GoombaNPCBehavior goomba in FindObjectsOfType<GoombaNPCBehavior>())
         {
-            if(gomba.walkingBehavior == WalkingBehavior.SmartLeft || gomba.walkingBehavior == WalkingBehavior.SmartRight)
+            if(goomba.walkingBehavior == WalkingBehavior.SmartLeft || goomba.walkingBehavior == WalkingBehavior.SmartRight)
             {
                 NPCData data = new NPCData
                 {
-                    position = gomba.transform.position,
-                    behavior = gomba.walkingBehavior
+                    position = goomba.transform.position,
+                    behavior = goomba.walkingBehavior
                 };
                 SmartGoombaPositions.Add(data);
             }
@@ -130,17 +130,17 @@ public class GameManager : MonoBehaviour
             newPowerUpData.isCheckpoint = pos.isCheckpoint;
         }
 
-        // Reset Gomba
-        foreach (GombaNPCBehavior gomba in FindObjectsOfType<GombaNPCBehavior>())
+        // Reset Goomba
+        foreach (GoombaNPCBehavior goomba in FindObjectsOfType<GoombaNPCBehavior>())
         {
-            Destroy(gomba.gameObject);
+            Destroy(goomba.gameObject);
         }
 
         // Instantiate new ones at the initial positions
         foreach (NPCData pos in initialNPCPositions)
         {
             GameObject npc = Instantiate(GoombaPrefab, pos.position, Quaternion.identity);
-            var newNPC = npc.GetComponent<GombaNPCBehavior>();
+            var newNPC = npc.GetComponent<GoombaNPCBehavior>();
             newNPC.walkingBehavior = pos.behavior;
         }
 
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
         foreach (NPCData pos in SmartGoombaPositions)
         {
             GameObject npc = Instantiate(SmartGoombaPrefab, pos.position, Quaternion.identity);
-            var newNPC = npc.GetComponent<GombaNPCBehavior>();
+            var newNPC = npc.GetComponent<GoombaNPCBehavior>();
             newNPC.walkingBehavior = pos.behavior;
         }
     }

@@ -38,12 +38,12 @@ public class PlayerController : MonoBehaviour
             // Get horizontal input only
             float horizontal = Input.GetAxis("Horizontal");
 
-            if(horizontal != 0)
+            if (horizontal != 0)
             {
                 // Create a 2D movement vector for the horizontal direction
                 Vector2 movement = new Vector2(horizontal, rb.velocity.y);
 
-                if(horizontal > 0)
+                if (horizontal > 0)
                 {
                     spriteRenderer.flipX = false;
                 }
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
                 // Apply movement to the Rigidbody2D
                 rb.velocity = movement * new Vector2(speed, 1);
                 animator.SetBool("isWalking", true);
-                if(!isJumping && !isFalling)
+                if (!isJumping && !isFalling)
                 {
                     isPlayingFall = false;
                 }
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isJumping", true);
                 timeHeld += Time.deltaTime;
                 float percentage = Mathf.Clamp01(timeHeld / timeToReachMaxForce);
-                if(percentage < 1)
+                if (percentage < 1)
                 {
                     float currentJumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, percentage);
                     rb.velocity = new Vector2(rb.velocity.x, currentJumpForce);
