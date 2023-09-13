@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
     // OnCollisionEnter2D is called when this collider/rigidbody has begun touching another rigidbody/collider
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             // Check the collision from above
             if (collision.contacts[0].normal.y > 0.5f)
