@@ -4,43 +4,42 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5.0f;  // Movement speed
-    public float minJumpForce = 2.0f;  // Minimum jump force for a quick tap
-    public float maxJumpForce = 5.0f;  // Maximum jump force for holding the button
-    public float timeToReachMaxForce = 0.5f; // Time in seconds to reach max jump force when button is held
+    public float speed = 5.0f;
+    public float minJumpForce = 2.0f;
+    public float maxJumpForce = 5.0f;
+    public float timeToReachMaxForce = 0.5f;
     public float fastFallSpeed = 10.0f;
 
-    private Rigidbody2D rb;     // Reference to the Rigidbody2D component
-    private bool isJumping = false; // Flag to check if the player is currently jumping
-    private float timeHeld = 0f;  // Time the jump button is held
-    private bool isFalling = false;  // Flag to check if the player is currently falling
+    private Rigidbody2D rb;
+    private bool isJumping = false;
+    private float timeHeld = 0f;
+    private bool isFalling = false;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private bool isPlayingFall = false;
+    private bool isGrounded;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Get the Rigidbody2D component attached to this GameObject
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         Transform childTransform = transform.Find("PlayerSprite");
         spriteRenderer = childTransform.GetComponent<SpriteRenderer>();
     }
 
-
     // Update is called once per frame
     void Update()
     {
         if (!GameManager.Instance.isPlayerRespawning)
         {
-
-            // Get horizontal input only
+            // Ground check
+            Vector2 rayStart = transform.position + new Vector3(0, -0.5f, 0);  // Adjust the -0.5f as needed
+            isGrounded = Physics2D.Raycast(rayStart, Vector2.down, 0.1f);
             float horizontal = Input.GetAxis("Horizontal");
 
             if (horizontal != 0)
             {
-                // Create a 2D movement vector for the horizontal direction
                 Vector2 movement = new Vector2(horizontal, rb.velocity.y);
 
                 if (horizontal > 0)
@@ -52,7 +51,6 @@ public class PlayerController : MonoBehaviour
                     spriteRenderer.flipX = true;
                 }
 
-                // Apply movement to the Rigidbody2D
                 rb.velocity = movement * new Vector2(speed, 1);
                 animator.SetBool("isWalking", true);
                 if (!isJumping && !isFalling)
@@ -65,9 +63,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isWalking", false);
             }
 
-
-            // Update the isFalling flag based on the vertical velocity
-            if (rb.velocity.y < 0)
+            if (rb.velocity.y < 0 && !isGrounded)
             {
                 if (!isPlayingFall)
                 {
@@ -85,8 +81,7 @@ public class PlayerController : MonoBehaviour
                 isFalling = false;
             }
 
-            // Detect if the jump button is pressed
-            if (Input.GetButtonDown("Jump") && !isJumping && !isFalling)
+            if (Input.GetButtonDown("Jump") && !isJumping && isGrounded)
             {
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isFalling", false);
@@ -97,7 +92,6 @@ public class PlayerController : MonoBehaviour
                 isPlayingFall = false;
             }
 
-            // Detect if the jump button is being held
             if (Input.GetButton("Jump") && isJumping && !isFalling)
             {
                 animator.SetBool("isWalking", false);
@@ -116,7 +110,6 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, -fastFallSpeed);
             }
 
-            // Detect if the jump button is released
             if (Input.GetButtonUp("Jump"))
             {
                 animator.SetBool("isJumping", false);
@@ -125,13 +118,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    // OnCollisionEnter2D is called when this collider/rigidbody has begun touching another rigidbody/collider
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            // Check the collision from above
             if (collision.contacts[0].normal.y > 0.5f)
             {
                 isJumping = false;
