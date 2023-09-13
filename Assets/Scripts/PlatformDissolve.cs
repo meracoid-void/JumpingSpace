@@ -30,10 +30,11 @@ public class PlatformDissolve : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            // Check if the player is on top of the platform
             if (other.transform.position.y > transform.position.y)
             {
                 isPlayerOnPlatform = true;
+                // Tell the player that it's not falling anymore
+                other.GetComponent<PlayerController>().ResetFallingState();
             }
         }
     }

@@ -7,60 +7,73 @@ public class AudioClipController : MonoBehaviour
     public static AudioClipController instance;
     public AudioClip jump;
     public AudioClip fall;
-    public AudioClip playerHit; // New AudioClip for when the player is hit
     public AudioClip powerUp;
     private AudioSource source;
+
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);  // Ensure the instance isn't destroyed when loading a new scene
         }
         else
         {
-            Destroy(instance);
+            Destroy(gameObject);
+            return;  // Destroy the current instance and exit the Awake function
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
         source = GetComponent<AudioSource>();
+        if (source == null)
+        {
+            Debug.LogError("No AudioSource component found on this GameObject.");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Your code here
     }
 
     public void PlayJump()
     {
-        source.PlayOneShot(jump);
+        if (source != null && jump != null)
+        {
+            source.PlayOneShot(jump);
+        }
+        else
+        {
+            Debug.LogError("Either AudioSource or Jump AudioClip is null.");
+        }
     }
+
     public void PlayFall()
     {
-        source.PlayOneShot(fall);
-    }
-    // New method for when the player is hit
-    public void PlayPlayerHit()
-    {
-        source.Pause();  // Pause all other audio
-        source.PlayOneShot(playerHit);  // Play the player hit sound
-
-        // Resume all audio after a short delay
-        StartCoroutine(ResumeAudioAfterDelay(1.0f)); // You can change the delay duration here
+        if (source != null && fall != null)
+        {
+            source.PlayOneShot(fall);
+        }
+        else
+        {
+            Debug.LogError("Either AudioSource or Fall AudioClip is null.");
+        }
     }
 
-    // New method for when the player gets a power-up
+    // New method to play the power-up sound
     public void PlayPowerUp()
     {
-        source.PlayOneShot(powerUp);
-    }
-
-    // Coroutine to resume audio after a delay
-    IEnumerator ResumeAudioAfterDelay(float delay)
-    {
-        yield return new WaitForSecondsRealtime(delay);
-        source.UnPause();
+        if (source != null && powerUp != null)
+        {
+            source.PlayOneShot(powerUp);
+        }
+        else
+        {
+            Debug.LogError("Either AudioSource or PowerUp AudioClip is null.");
+        }
     }
 }

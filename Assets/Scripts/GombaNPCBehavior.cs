@@ -12,7 +12,7 @@ public enum WalkingBehavior
     SmartRight = 4,
 }
 
-public class GoombaNPCBehavior : MonoBehaviour
+public class GombaNPCBehavior : MonoBehaviour
 {
     public WalkingBehavior walkingBehavior;
     public float speed = 1.0f; // Speed of the enemy

@@ -129,7 +129,21 @@ public class PlayerController : MonoBehaviour
     // OnCollisionEnter2D is called when this collider/rigidbody has begun touching another rigidbody/collider
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Reset the isJumping flag when player collides with ground
-        isJumping = false;
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            // Check the collision from above
+            if (collision.contacts[0].normal.y > 0.5f)
+            {
+                isJumping = false;
+                isFalling = false;
+                animator.SetBool("isFalling", false);
+            }
+        }
+    }
+
+    public void ResetFallingState()
+    {
+        isFalling = false;
+        animator.SetBool("isFalling", false);
     }
 }

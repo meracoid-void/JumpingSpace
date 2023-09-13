@@ -20,16 +20,6 @@ public class PowerUp : MonoBehaviour
 
     }
 
-    private void ResetGoombas()
-    {
-        // Reset Goombas
-        GoombaNPCBehavior[] goombas = GameObject.FindObjectsOfType<GoombaNPCBehavior>();
-        foreach (GoombaNPCBehavior goomba in goombas)
-        {
-            goomba.ResetToInitialState();
-        }
-    }
-
     // OnTriggerEnter2D is called when the Collider2D other enters the trigger (2D physics only)
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -46,9 +36,6 @@ public class PowerUp : MonoBehaviour
 
                 // Update the respawn point
                 timerAndKill.respawnPoint = transform.position;
-
-                // Reset Goombas
-                ResetGoombas();
             }
             else if (!isCheckpoint)
             {
